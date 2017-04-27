@@ -2,7 +2,7 @@ function [dz]=dJSFunZ_W_R_M_E24(t,Z,pw,pr,pm,pe,pk,pc)
 %振动方程组dJSFunZ_W_R_M_E(转动频率,径向间隙,飞轮质量,偏心距,变刚度幅值,阻尼系数)
 %pw=转动频率;pr=径向间隙;pm=飞轮质量;pe=偏心距;pk=变刚度幅值;pc=阻尼系数
 %默认值
-w=1;zr=0.1;zm=1;e1=0;ks=2;C=0.3;
+w=1;zr=0.1;zm=1;e1=0;ks=0;C=0.3;
 if (pw>=0) w=pw;end;
 if (pr>=0) zr=pr;end;
 if (pm>=0) zm=pm;end;
@@ -29,18 +29,18 @@ dz(11)=Z(12);
 dz(12)=(  - ( Cy3*Z(12) +Ky3*Z(11)-Ky2*Z(7)-Ky3*Z(15) ) +  es*FyJSFun(Z(9),Z(11),Z(10),Z(12))  )/M3;
 
 dz(13)=Z(14);
-dz(14)=(  - ( Cx2*Z(14) +Kx2*Z(13)-Kx1*Z(9) - Kx2*Z(17) ) + T*cos(t+pi)  )/M2 +e1/C*cos(w*t+pi) ;
+dz(14)=(  - ( Cx2*Z(14) +Kx2*Z(13)-Kx1*Z(9) - Kx2*Z(17) ) + T*cos(t+pi)  )/M4 +e1/C*cos(w*t+pi) ;
 dz(15)=Z(16);
-dz(16)=(  - ( Cy2*Z(16) +Ky2*Z(15)-Ky1*Z(11) - Ky2*Z(19) ) + T*sin(t+pi) )/M2 + e1/C*sin(w*t+pi)  ;
+dz(16)=(  - ( Cy2*Z(16) +Ky2*Z(15)-Ky1*Z(11) - Ky2*Z(19) ) + T*sin(t+pi) )/M4 + e1/C*sin(w*t+pi)  ;
 
 dz(17)=Z(18);
-dz(18)=(  - ( Cx3*Z(18) +Kx3*Z(17)-Kx2*Z(13)-Kx3*Z(21) ) +  es*FxJSFun(Z(17),Z(19),Z(18),Z(20))  )/M3;
+dz(18)=(  - ( Cx3*Z(18) +Kx3*Z(17)-Kx2*Z(13)-Kx3*Z(21) ) +  es*FxJSFun(Z(17),Z(19),Z(18),Z(20))  )/M5;
 dz(19)=Z(20);
-dz(20)=(  - ( Cy3*Z(20) +Ky3*Z(19)-Ky2*Z(15)-Ky3*Z(23) ) +  es*FyJSFun(Z(17),Z(19),Z(18),Z(20))  )/M3;
+dz(20)=(  - ( Cy3*Z(20) +Ky3*Z(19)-Ky2*Z(15)-Ky3*Z(23) ) +  es*FyJSFun(Z(17),Z(19),Z(18),Z(20))  )/M5;
 
 dz(21)=Z(22);
-dz(22)=(  - ( Cx4*Z(22) +Kx3*Z(21)-Kx3*Z(17) ) )/M4 + e2/C*cos(w*t)  ;
+dz(22)=(  - ( Cx4*Z(22) +Kx3*Z(21)-Kx3*Z(17) ) )/M6 + e2/C*cos(w*t)  ;
 dz(23)=Z(24);
-dz(24)=(  - ( Cy4*Z(24) +Ky3*Z(23)-Ky3*Z(19) ) )/M4 + e2/C*sin(w*t)  ;
+dz(24)=(  - ( Cy4*Z(24) +Ky3*Z(23)-Ky3*Z(19) ) )/M6 + e2/C*sin(w*t)  ;
 
 end

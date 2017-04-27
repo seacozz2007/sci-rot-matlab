@@ -1,8 +1,8 @@
 clc;    
 clear all;
     options=odeset('RelTol',1e-3);   %acc
-    
-    w=0.9;
+
+    w=0.8;
     tt = 2*pi/w;  %step
     m=40;
     n=40;
