@@ -1,15 +1,16 @@
-clc;    
-clear all;
+    clc;    
+    clear all;
+    
     options=odeset('RelTol',1e-3);   %acc
 
-    w=0.8;
+    w=1;
     tt = 2*pi/w;  %step
     m=40;
-    n=40;
+    n=50;
     is=floor(n*1/4)*m;
     iniM=zeros(24,1);
     %振动方程组dJSFunZ_W_R_M_E(转动频率,径向间隙,飞轮质量,偏心距,变刚度幅值,阻尼系数)
-    [t,xy]=ode45(@dJSFunZ_W_R_M_E24,[0:tt/m:n*tt],iniM,options,w,-1,-1,-1,2.5,-1);
+    [t,xy]=ode45(@dJSFunZ_W_R_M_E24,[0:tt/m:n*tt],iniM,options,w,0,-1,-1,2.5,-1);
     figure;set(gcf,'color','white');
     fi=0;
     for fix=1:6
@@ -45,14 +46,14 @@ clear all;
     plot3(zeros(cmm+1,1)+scx(5),(xy(ii,17)-scy(5))*scalen+scy(5),(xy(ii,19)-scz(5))*scalen+scz(5));
     plot3(zeros(cmm+1,1)+scx(6),xy(ii,21),xy(ii,23));
     
-        figure;
-        fs=m/tt;
-        is=1000;
-        N=512;
-        yy=xy(is:(is+N-1),1);
-        fp=abs(fft(yy,N));
-        %plot(0:(N/2-1),fp(1:(N/2-0))*N/fs);
-        plot3(((0:(N/2-103))./(512/40)),linspace(1,1,(N/2-102)),fp(3:(N/2-100))*N/fs);
-
-        drawnow;
+    figure;
+    fs=m/tt;
+    is=1000;
+    N=512;
+    yy=xy(is:(is+N-1),1);
+    fp=abs(fft(yy,N));
+    %plot(0:(N/2-1),fp(1:(N/2-0))*N/fs);
+    plot3(((0:(N/2-103))./(512/40)),linspace(1,1,(N/2-102)),fp(3:(N/2-100))*N/fs);
+    
+    drawnow;
     
