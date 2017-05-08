@@ -11,9 +11,9 @@ clear all;
 %m3*x3..+c3*x3.+k2(x3-x2)=f3
 
 init_nfod;
-[na n]=size(M);
+[na n]=size(gM);
 
-kk=K;mm=M;cc=C;
+kk=gK;mm=gM;cc=gC;
 
 q0=zeros(1,n);
 dq0=zeros(1,n); 
