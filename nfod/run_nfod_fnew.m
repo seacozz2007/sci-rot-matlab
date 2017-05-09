@@ -29,6 +29,7 @@ end
 [acc,vel,dsp]=newmark(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0);
 
 t=0:dt:(dt*nt);
+n=3;
 for i=1:n
     subplot(3,n,i+n); plot(t,dsp(i,:),'-');
 end
