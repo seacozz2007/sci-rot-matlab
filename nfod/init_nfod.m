@@ -6,11 +6,20 @@ rk = [0 1e9 1e9 1e9 1e9 1e9 0];
 rc = [0 0 0 0 0 0];
 
 f1 = 1;
-w = 20;
+w = 10;
+
+
 
 Mx = diag(rm);
+
+Mx=diag([1000 100 100 100 100 100]);
+
 My = Mx;
 Kx = diag(rk(1:n))+diag(rk(2:n+1))-diag(rk(2:n),1)-diag(rk(2:n),-1);
+
+
+Kx= diag([1e9 100 100 100 100 100]);
+
 Ky = Kx;
 Cx = diag(rc);
 Cy = Cx;
@@ -26,8 +35,11 @@ gK = [Kx E6; E6 Ky];
 
 gC = [Cx E6; E6 Cy];
 
-gW = w;
 gF1 =f1;
 
-nt = 10000000;
-dt = 0.00000001;
+
+gW = w;
+
+
+nt = 1000000;
+dt = 0.001;

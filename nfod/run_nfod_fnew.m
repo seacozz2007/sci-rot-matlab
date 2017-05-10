@@ -22,7 +22,7 @@ fd=zeros(n,nt+1);
 %º∆À„ fd
 for it=1:(nt+1)                                              % loop for each time step
    %CAL THE F
-    fd(1,it)=f1*cos(w*it*dt);
+    fd(1,it)=f1*cos(gW*it*dt);
     %fd(:,it+1)=[f1*cos(w*(it+1)*dt)];
 end
 
