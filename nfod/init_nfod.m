@@ -31,8 +31,10 @@ gK = [Kx E6; E6 Ky];
 
 gC = [Cx E6; E6 Cy];
 
-gW = w;
 gF1 =f1;
+
+gW = w;
+
 
 nt = 100000;
 dt = 0.001;
