@@ -6,18 +6,18 @@ rk = [0 1e9 1e9 1e9 1e9 1e9 0];
 rc = [0 0 0 0 0 0];
 
 f1 = 1;
-w = 10;
+w = 100;
 
 Mx = diag(rm);
 Mx =diag([1e3 1 1 1 1 1]);
 
 My = Mx;
 Kx = diag(rk(1:n))+diag(rk(2:n+1))-diag(rk(2:n),1)-diag(rk(2:n),-1);
-Kx = diag([1e6 1 1 1 1 1]);
+Kx = diag([1e6 0 0 0 0 0]);
 
 Ky = Kx;
 Cx = diag(rc);
-Cx =diag([0 1 1 1 1 1]);
+Cx =diag([0 0 0 0 0 0]);
 Cy = Cx;
 E6 = zeros(n);
 

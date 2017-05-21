@@ -17,6 +17,6 @@ F0=f1;
 
 dz=zeros(2,1);
 dz(1) = Z(2);
-dz(2) = (-c*Z(2)-k*Z(1)+F0*cos(w*t))/m;
+dz(2) = (0-c*Z(2)-k*Z(1)+F0*cos(w*t))/m;
 
 end
