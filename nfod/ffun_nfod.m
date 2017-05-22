@@ -10,9 +10,9 @@ function [dz]=ffun_nfod(t,Z)
 
 %x1..=dz(2)  x1.=dz(1)=Z(2);  x1=Z(1);
 
-global gK gC gInvM gN gW gF1;
+global gK gC gInvM gW;
 
-n=gN;
+n=2;
 
 invM=gInvM;
 K=gK;

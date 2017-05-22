@@ -26,10 +26,10 @@ fd=zeros(n,nt+1);
 %     %fd(:,it+1)=[f1*cos(w*(it+1)*dt)];
 % end
 
-[acc,vel,dsp]=newmark(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0);
+[acc,vel,dsp]=houbolt(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0);
 
 t=0:dt:(dt*nt);
 n=2;
 for i=1:n
-    subplot(3,n,i+n); plot(t(ise),dsp(i,ise),'-');
+    subplot(4,n,i+n*2); plot(t(ise),dsp(i,ise),'-');
 end

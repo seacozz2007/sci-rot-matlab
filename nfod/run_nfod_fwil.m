@@ -30,6 +30,7 @@ fd=zeros(n,nt+1);
 [acc,vel,dsp]=wilson(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0);
 
 t=0:dt:(dt*nt);
-for i=1:3
-    subplot(3,3,i); plot(t,dsp(i,:),'-');
+n=2;
+for i=1:n
+    subplot(3,2,i); plot(t(ise),dsp(i,ise),'-');
 end

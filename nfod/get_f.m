@@ -1,32 +1,24 @@
 function [ fd ] = get_f( wt,dsp,vel)
 %获取所受的力 包括 不平衡力Fu 激励力Ft 和 轴承力Fb
 %wt 当前转角,z 为位移
-    global gN gF1 gbearC fd gW;
-    dN=gN/2;
-    fd = zeros(gN,1);
+    global gP gQ;
+
+    fd = zeros(2,1);
     fu = fd;
     ft = fd;
     fb = fd;
     
     %不平衡力
-     me=0.05;
-    tFux = gW*gW*cos(wt)*me;
-    tFuy = gW*gW*sin(wt)*me;
-    fu([2 4]) = tFux;
-    fu([8 10]) = tFuy;
-%     
+    fu(1) = cos(wt)*gP;
+    fu(2) = sin(wt)*gP;
+
     %激励力 0
-%     tf=gF1;
-%     tFtx= tf * cos(wt);
-%     tfty= tf * sin(wt);
-%     ft(1) = tFtx;
+     ft(2) = -1/gQ;
     %轴承力
-    ts=0.4;
-    for i=[1 3 5]
-        fb(i)=ts*FxJSFun(dsp(i),dsp(i+dN),vel(i),vel(i+dN));
-        fb(i+dN)=ts*FyJSFun(dsp(i),dsp(i+dN),vel(i),vel(i+dN));
-    end 
+    ts=1;
+    fb(1)=ts*FxJSFun(dsp(1),dsp(2),vel(1),vel(2));
+    fb(2)=ts*FyJSFun(dsp(1),dsp(2),vel(1),vel(2));
     
-    fd=(fu+fb+ft)/gbearC;
+    fd=fu+fb+ft;
 end
 

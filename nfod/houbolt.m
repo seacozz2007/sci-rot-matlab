@@ -1,4 +1,5 @@
 function [acc,vel,dsp]=houbolt(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0)
+global gW;
 %--------------------------------------------------------------------------
 %  Purpose:
 %     The function subroutine TransResp3.m calculates transient response of
@@ -44,7 +45,7 @@ ekk=mm/dt^2+cc/(2*dt);                       % compute the effective stiffness m
 %  (2.2) calculate the displacement at time t+dt
 %----------------------------------------
 it=1;
- 
+fd(:,it)=get_f(gW*it*dt,dsp(:,it),vel(:,it));
 efd=fd(:,it)-(kk-2*mm/dt^2)*dsp(:,it)-(mm/dt^2-cc/(2*dt))*dsp0;
                                             %  compute the effective force vector
 dsp(:,it+1)=inv(ekk)*efd;                                     % find the dsp at t+dt
@@ -61,6 +62,8 @@ end
 %  (2.3) calculate the displacement at time t+2dt
 %-----------------------------------------
 for it=2:3                                       % loop for two steps after first step
+  fd(:,it)=get_f(gW*it*dt,dsp(:,it),vel(:,it));
+    
   efd=fd(:,it)-(kk-2*mm/dt^2)*dsp(:,it)-(mm/dt^2-cc/(2*dt))*dsp(:,it-1);
                                             %  compute the effective force vector
   dsp(:,it+1)=inv(ekk)*efd;                                   % find the dsp at t+dt
@@ -85,6 +88,8 @@ ekk=kk+cc*11/(6*dt)+mm*2/(dt*dt);
  
 for it=3:nt                                 % loop for each time step after initial step
                                             %  compute the effective force vector
+                                            
+  fd(:,it+1)=get_f(gW*it*dt,dsp(:,it),vel(:,it));
   cfm=dsp(:,it)*5/dt^2-dsp(:,it-1)*4/dt^2+dsp(:,it-2)*1/dt^2;
   cfc=dsp(:,it)*3/dt-dsp(:,it-1)*3/(2*dt)+dsp(:,it-2)*1/(3*dt);
  
@@ -93,7 +98,7 @@ for it=3:nt                                 % loop for each time step after init
   dsp(:,it+1)=inv(ekk)*efd;                                   % find the dsp at t+dt
   acc(:,it)=(2*dsp(:,it+1)-5*dsp(:,it)+4*dsp(:,it-1)+dsp(:,it-2))/dt^2;
                                                           % find the acc at t+dt
-  vel(:,it)=(11*dsp(:,it+1)-18*dsp(:,it)+9&dsp(:,it-1)-2*dsp(:,it-2))/(6*dt);
+  vel(:,it)=(11*dsp(:,it+1)-18*dsp(:,it)+9*dsp(:,it-1)-2*dsp(:,it-2))/(6*dt);
                                                           % find the vel at t+dt
   for i=1:sdof                % assign zero to acc, vel, dsp of the dofs associated with bc
     if bcdof(i)==1

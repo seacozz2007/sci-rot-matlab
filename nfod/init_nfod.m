@@ -1,40 +1,21 @@
-global gM gK gC gInvM gN gW gF1 gbearC;
+global gM gK gC gInvM gN gP gQ gW;
 gbearC = 0.025;
-n=6;
-rm = [1360 4123 1813 4123 2012 7123];
-rk = [0 1e9 1e9 1e9 1e9 1e9 0];
-rc = [0 0 0 0 0 0]+0.3;
+n=1;
+rm = 70;
+rk = 0;
+rc = 0;
+gP = rm * 0.3;
+gQ = 0.1;
 
-f1 = 1;
-w = 30;
-
-Mx = diag(rm);
-%Mx =diag([1e3 1 1 1 1 1]);
-My = Mx;
-
-Kx = diag(rk(1:n))+diag(rk(2:n+1))-diag(rk(2:n),1)-diag(rk(2:n),-1);
-%Kx = diag([1e9 0 0 0 0 0]);
-Ky = Kx;
-
-Cx = diag(rc);
-%Cx =diag([0 0 0 0 0 0]);
-Cy = Cx;
-E6 = zeros(n);
-
-n=12;
-gN=n;
-
-gM = [Mx E6; E6 My];
+gN=n*2;
+gM = [rm 0;0 rm];
 gInvM = inv(gM);
+gK = [rk 0;0 rk];
+gC = [rc 0;0 rc];
+gW = 1;
 
-gK = [Kx E6; E6 Ky];
-
-gC = [Cx E6; E6 Cy];
-
-gF1 =f1;
-
-gW = w;
-
-
-nt = 1000;
 dt = 0.01;
+nt = 6420/dt;
+is = 6300/dt;
+ie = 6420/dt;
+ise=is:ie;
