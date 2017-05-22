@@ -18,12 +18,10 @@ invM=gInvM;
 K=gK;
 C=gC;
 
-fd=zeros(n,1);
-
-fd(1,1)=cos(gW*t)*gF1;
-
 A=Z(1:n);
 B=Z((n+1):(n*2));
+
+fd = get_f(gW*t,A,B);
 
 dz=zeros(2*n,1);
 dz(1:n) = B;

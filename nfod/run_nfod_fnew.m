@@ -20,11 +20,11 @@ dq0=zeros(1,n);
 bcdof=zeros(1,n);
 fd=zeros(n,nt+1);
 %º∆À„ fd
-for it=1:(nt+1)                                              % loop for each time step
-   %CAL THE F
-    fd(1,it)=f1*cos(gW*it*dt);
-    %fd(:,it+1)=[f1*cos(w*(it+1)*dt)];
-end
+% for it=1:(nt+1)                                              % loop for each time step
+%    %CAL THE F
+%     fd(1,it)=f1*cos(gW*it*dt);
+%     %fd(:,it+1)=[f1*cos(w*(it+1)*dt)];
+% end
 
 [acc,vel,dsp]=newmark(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0);
 

@@ -1,4 +1,5 @@
 function [acc,vel,dsp]=wilson(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0)
+global gW;
 %--------------------------------------------------------------------------
 %  Purpose:
 %     The function subroutine TransResp4.m calculates transient response of
@@ -29,6 +30,8 @@ acc=zeros(sdof,nt);                                          % acceleration matr
 dsp(:,1)=q0;                                               % initial displacement
 vel(:,1)=dq0;                                                   % initial velocity
  
+fd(:,1)=get_f(gW*dt,dsp(:,1),vel(:,1));
+ 
 theta=1.4;                                          % select the parameters
 %--------------------------------------------------------------------------
 %  (2) Wilson   integration scheme for time integration
@@ -46,6 +49,9 @@ for i=1:sdof                  % assign zero to dsp, vel, acc of the dofs associa
 end
 
 for it=1:nt                                              % loop for each time step
+    
+  fd(:,it+1)=get_f(gW*it*dt,dsp(:,it),vel(:,it));
+  
   cfm=dsp(:,it)*(6/(theta*dt)^2)+vel(:,it)*(6/(theta*dt))+2*acc(:,it);
   cfc=dsp(:,it)*(3/(theta*dt))+2*vel(:,it)+acc(:,it)*(theta*dt/2);
   efd=fd(:,it)+theta*(fd(:,it+1)-fd(:,it))+mm*cfm+cc*cfc;

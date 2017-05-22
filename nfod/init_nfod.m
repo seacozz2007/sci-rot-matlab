@@ -3,21 +3,21 @@ global gM gK gC gInvM gN gW gF1;
 n=6;
 rm = [1360 4123 1813 4123 2012 7123];
 rk = [0 1e9 1e9 1e9 1e9 1e9 0];
-rc = [0 0 0 0 0 0];
+rc = [0 0 0 0 0 0]+0.3;
 
 f1 = 1;
-w = 100;
+w = 10;
 
 Mx = diag(rm);
-Mx =diag([1e3 1 1 1 1 1]);
-
+%Mx =diag([1e3 1 1 1 1 1]);
 My = Mx;
-Kx = diag(rk(1:n))+diag(rk(2:n+1))-diag(rk(2:n),1)-diag(rk(2:n),-1);
-Kx = diag([1e6 0 0 0 0 0]);
 
+Kx = diag(rk(1:n))+diag(rk(2:n+1))-diag(rk(2:n),1)-diag(rk(2:n),-1);
+%Kx = diag([1e9 0 0 0 0 0]);
 Ky = Kx;
+
 Cx = diag(rc);
-Cx =diag([0 0 0 0 0 0]);
+%Cx =diag([0 0 0 0 0 0]);
 Cy = Cx;
 E6 = zeros(n);
 
@@ -36,5 +36,5 @@ gF1 =f1;
 gW = w;
 
 
-nt = 100000;
-dt = 0.001;
+nt = 10000;
+dt = 0.01;
