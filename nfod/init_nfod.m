@@ -1,12 +1,12 @@
-global gM gK gC gInvM gN gW gF1;
-
+global gM gK gC gInvM gN gW gF1 gbearC;
+gbearC = 0.025;
 n=6;
 rm = [1360 4123 1813 4123 2012 7123];
 rk = [0 1e9 1e9 1e9 1e9 1e9 0];
 rc = [0 0 0 0 0 0]+0.3;
 
 f1 = 1;
-w = 10;
+w = 30;
 
 Mx = diag(rm);
 %Mx =diag([1e3 1 1 1 1 1]);
@@ -36,5 +36,5 @@ gF1 =f1;
 gW = w;
 
 
-nt = 10000;
+nt = 1000;
 dt = 0.01;
