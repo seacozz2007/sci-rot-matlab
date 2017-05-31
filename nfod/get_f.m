@@ -9,15 +9,17 @@ function [ fd ] = get_f( wt,dsp,vel)
     fb = fd;
     
     %不平衡力
-    fu(1) = cos(wt)*gP;
-    fu(1+gN/2) = sin(wt)*gP;
+    xxi=1;
+    yyi=1+gN/2;
+    fu(xxi) = cos(wt)*gP;
+    fu(yyi) = sin(wt)*gP;
 
     %激励力 0
-     ft(1+gN/2) = -1/gQ;
+     ft(yyi) = -1/gQ;
     %轴承力
     ts=1;
-    fb(1)=ts*FxJSFun(dsp(1),dsp(2),vel(1),vel(2));
-    fb(1+gN/2)=ts*FyJSFun(dsp(1),dsp(2),vel(1),vel(2));
+    fb(xxi)=ts*FxJSFun(dsp(xxi),dsp(yyi),vel(xxi),vel(yyi));
+    fb(yyi)=ts*FyJSFun(dsp(xxi),dsp(yyi),vel(xxi),vel(yyi));
     
     fd=fu+fb+ft;
 end

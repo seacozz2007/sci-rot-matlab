@@ -31,5 +31,5 @@ fd=zeros(n,nt+1);
 t=0:dt:(dt*nt);
 n=2;
 for i=1:n
-    subplot(3,n,i+n); plot(t(ise),dsp(i,ise),'-');
+    subplot(3,n,i+n); plot(t(ise),dsp(1+i*gN/2-gN/2,ise),'-');
 end
