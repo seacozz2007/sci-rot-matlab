@@ -9,7 +9,7 @@ function [ fd ] = get_f( wt,dsp,vel)
     fb = fd;
     
     %不平衡力
-    for i=[1 2 3 4 5]
+    for i=[1]
         xxi=i;
         yyi=i+gN/2;
         fu(xxi) = cos(wt)*gP;
@@ -17,12 +17,12 @@ function [ fd ] = get_f( wt,dsp,vel)
     end
 
     %激励力 G
-    for i=[1 2 3 4 5 6]
+    for i=[1]
         yyi=i+gN/2;
         ft(yyi) = -1*gQ;
     end
     %轴承力
-    for i=[1 3 5]
+    for i=[1]
         xxi=i;
         yyi=i+gN/2;
         fb(xxi)=gS*FxJSFun(dsp(xxi),dsp(yyi),vel(xxi),vel(yyi));
