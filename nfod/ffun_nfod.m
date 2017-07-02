@@ -10,12 +10,13 @@ function [dz]=ffun_nfod(t,Z)
 
 %x1..=dz(2)  x1.=dz(1)=Z(2);  x1=Z(1);
 
-global gK gC gInvM gW gN;
+global gK gC gInvM gW gN gK0 gKs;
 
 n=gN;
 
 invM=gInvM;
-K=gK;
+
+K=modify_K(t,gK0,gW,gKs);
 C=gC;
 
 A=Z(1:n);

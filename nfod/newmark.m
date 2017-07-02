@@ -1,5 +1,5 @@
 function [acc,vel,dsp]=newmark(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0)
-global gW;
+global gW gK0 gKs;
 %--------------------------------------------------------------------------
 %  Purpose:
 %     The function subroutine TransResp5.m calculates transient response of
@@ -34,7 +34,7 @@ alpha=0.5; beta=0.5;                                        % select the paramet
 %--------------------------------------------------------------------------
 %  (2) Newmark integration scheme for time integration
 %--------------------------------------------------------------------------
-fd(:,1)=get_f(gW*dt,dsp(:,1),vel(:,1));
+fd(:,1)=get_f(dt,dsp(:,1),vel(:,1));
 
 acc(:,1)=inv(mm)*(fd(:,1)-kk*dsp(:,1)-cc*vel(:,1));
                                            % compute the initial acceleration (t=0)
@@ -53,8 +53,10 @@ for it=1:nt                                              % loop for each time st
     
    %º∆À„ ‹¡¶
 
+  kk=modify_K(it*dt,gK0,gW,gKs);
+  ekk=kk+mm/(alpha*dt^2)+cc*beta/(alpha*dt);
   
-  fd(:,it)=get_f(gW*it*dt,dsp(:,it),vel(:,it));
+  fd(:,it)=get_f(it*dt,dsp(:,it),vel(:,it));
   
   cfm=dsp(:,it)/(alpha*dt^2)+vel(:,it)/(alpha*dt)+acc(:,it)*(0.5/alpha-1);
   cfc=dsp(:,it)*beta/(alpha*dt)+vel(:,it)*(beta/alpha-1)...

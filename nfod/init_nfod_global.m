@@ -3,7 +3,7 @@ gsn=[1 7];
 gsf=[1 13];
 
 dt = 0.01;
-nt = 6420/dt;
-is = 6300/dt;
-ie = 6420/dt;
+nt = 1000/dt;
+is = 1/dt;
+ie = 1000/dt;
 ise=is:ie;

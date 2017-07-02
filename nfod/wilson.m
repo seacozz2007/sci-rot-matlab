@@ -1,5 +1,5 @@
 function [acc,vel,dsp]=wilson(kk,cc,mm,fd,bcdof,nt,dt,q0,dq0)
-global gW;
+global gW gK0 gKs;
 %--------------------------------------------------------------------------
 %  Purpose:
 %     The function subroutine TransResp4.m calculates transient response of
@@ -21,6 +21,7 @@ global gW;
 %--------------------------------------------------------------------------
 %  (1) initial condition
 %--------------------------------------------------------------------------
+
 [sdof,n2]=size(kk);
 
 dsp=zeros(sdof,nt);                                         % displacement matrix
@@ -30,7 +31,7 @@ acc=zeros(sdof,nt);                                          % acceleration matr
 dsp(:,1)=q0;                                               % initial displacement
 vel(:,1)=dq0;                                                   % initial velocity
  
-fd(:,1)=get_f(gW*dt,dsp(:,1),vel(:,1));
+fd(:,1)=get_f(dt,dsp(:,1),vel(:,1));
  
 theta=1.4;                                          % select the parameters
 %--------------------------------------------------------------------------
@@ -49,8 +50,11 @@ for i=1:sdof                  % assign zero to dsp, vel, acc of the dofs associa
 end
 
 for it=1:nt                                              % loop for each time step
-    
-  fd(:,it+1)=get_f(gW*it*dt,dsp(:,it),vel(:,it));
+  
+  kk=modify_K(it*dt,gK0,gW,gKs);
+  ekk=kk+mm*(6/(theta*dt)^2)+cc*(3/(theta*dt));
+  
+  fd(:,it+1)=get_f(it*dt,dsp(:,it),vel(:,it));
   
   cfm=dsp(:,it)*(6/(theta*dt)^2)+vel(:,it)*(6/(theta*dt))+2*acc(:,it);
   cfc=dsp(:,it)*(3/(theta*dt))+2*vel(:,it)+acc(:,it)*(theta*dt/2);

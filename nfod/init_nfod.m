@@ -1,40 +1,33 @@
-global gM gK gC gInvM gN gP gQ gW gS;
+global gM gK gC gInvM gN gP gQ gW gS gKs gK0;
 gbearC = 0.025;
-n=6;
-rm = [1360 4123 1813 4123 2012 7123];
-rk = [0 1e9 1e9 1e9 1e9 1e9 0];
-rk = [0 1 1 1 1 1 0]/1360;
-rc = [0 0 0 0 0 0];
+n=4;
+w=1;zr=8;zm=1;e1=0.1;ks=2;C=0.3;k=0.3;
 
-f1 = 1;
-w = 1;
+rm = [1 1 1 1];
+rc = [0 C 0 C]/w;
 
 Mx = diag(rm);
-Mx =diag([70 70 70 70 70 70]/70);
-Mx =diag(rm/1360);
 My = Mx;
 
-Kx = diag(rk(1:n))+diag(rk(2:n+1))-diag(rk(2:n),1)-diag(rk(2:n),-1)/1360;
-Kx = diag([1 1 1 1 1 1]*0);
-Ky = Kx;
-
 Cx = diag(rc);
-Cx =diag([0 0 0 0 0 0]);
 Cy = Cx;
-E6 = zeros(n);
+EE = zeros(n);
+
 
 n=n*2;
 gN=n;
-
-gM = [Mx E6; E6 My];
+gM = [Mx EE; EE My];
 gInvM = inv(gM);
-gK = [Kx E6; E6 Ky];
-gC = [Cx E6; E6 Cy];
+
+gC = [Cx EE; EE Cy]/w;
 
 gW = w;
+gP = e1/C;                %不平衡力
+gQ = 1;                    %激励力
+gS = zr/w/w/C;                               
 
-gP = 70 * 0.3/70;
-gQ =1/ 0.1/70;
-gS = 1/70;
+gKs=ks;
+gK0=k;
 
+modify_K(0,gK0,gW,gKs);
 
